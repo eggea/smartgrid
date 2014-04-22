@@ -9,9 +9,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class MeteringVo implements Serializable {
 
-	private static Float LOWPRICE=0.39F;
-	private static Float MEDIUMPRICE=0.45F;
-	private static Float HIGHPRICE=0.50F;
 	private String deviceName;
 	private String tipoMedicao; // diario, semanal, mensal
 	private Date date_start;
