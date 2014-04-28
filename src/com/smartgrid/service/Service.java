@@ -11,7 +11,6 @@ import javax.ws.rs.core.MediaType;
 
 import com.smartgrid.model.dao.SmartgridDao;
 import com.smartgrid.model.vo.DeviceVo;
-import com.smartgrid.model.vo.MeteringUnit;
 import com.smartgrid.model.vo.MeteringVo;
 
 /*
@@ -20,67 +19,86 @@ import com.smartgrid.model.vo.MeteringVo;
  */
 @Path("/")
 public class Service {
-	// Retorna todos os valores da base de um determinado deviceid
-	// http://localhost:8080/smartgrid/rest/getmetering?id=
-	@Path("/getmeteringV2")
+
+	// RETORNA TODOS OS VALORES DA TABELA DE UM ID (DEMORA)
+	// http://localhost:8080/smartgrid/rest/getmeteringall?id=1
+	@Path("/getmeteringall")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public MeteringVo getMeteringv2(@QueryParam("id") Integer id) {
-
-		SmartgridDao sgDao = new SmartgridDao();
-		MeteringVo mt = new MeteringVo();
-		mt = sgDao.getMeteringv1(5);
-		return mt;
-	}
-
-	@Path("/getmetering")
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	public List<MeteringUnit> getMetering(
+	public List<MeteringVo> getMeteringAll(
 			@QueryParam("id") Integer id) {
-
 		SmartgridDao sgDao = new SmartgridDao();
-		List<MeteringUnit> muList = sgDao.getMetering(5);
+		List<MeteringVo> muList = sgDao.getMeteringAll(id);
 		return muList;
 	}
 
+	// RETORNA 24 VALORES DIARIO
+	// http://localhost:8080/smartgrid/rest/getmeteringdaily?id=1&date=2014-03-01
 	@Path("/getmeteringdaily")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<MeteringUnit> getMeteringDiario(
+	public List<MeteringVo> getMeteringDaily(
 			@QueryParam("id") Integer id,
 			@QueryParam("date") String date) {
 			SmartgridDao sgDao = new SmartgridDao();
-			List<MeteringUnit> muList = sgDao.getMetering(id);
+			List<MeteringVo> muList = new ArrayList<MeteringVo>();
 			System.out.println("ID:" + id);
 			System.out.println("DATE: " + date);
 			muList = sgDao.getMeteringDaily(id, date);
 		return muList;
 	}
-
-	@Path("/getmeteringsemanal")
+	
+	// RETORNA 7 VALORES 
+	// http://localhost:8080/smartgrid/rest/getmeteringweekly?id=1&date=2014-03-01
+	@Path("/getmeteringweekly")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public MeteringVo getMeteringSemanal(@QueryParam("id") Integer id,
-			@QueryParam("dia") String data) {
-
-		return null;
+	public List<MeteringVo> getMeteringWeekly(
+			@QueryParam("id") Integer id,
+			@QueryParam("date") String date) {
+		SmartgridDao sgDao = new SmartgridDao();
+		List<MeteringVo> muList = new ArrayList<MeteringVo>();
+		System.out.println("ID:" + id);
+		System.out.println("DATE: " + date);
+		muList = sgDao.getMeteringWeekly(id, date);
+	return muList;
 	}
 
-	@Path("/getmeteringmensal")
+	// RETORNA 30 VALORES
+	// http://localhost:8080/smartgrid/rest/getmeteringmonthly?id=1&date=2014-03-01
+	@Path("/getmeteringmonthly")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public MeteringVo getMeteringMensal(@QueryParam("id") Integer id,
-			@QueryParam("mes") String data) {
-
-		return null;
+	public List<MeteringVo> getMeteringMonthly(
+			@QueryParam("id") Integer id,
+			@QueryParam("date") String date) {
+		SmartgridDao sgDao = new SmartgridDao();
+		List<MeteringVo> muList = new ArrayList<MeteringVo>();
+		System.out.println("ID:" + id);
+		System.out.println("DATE: " + date);
+		muList = sgDao.getMeteringMonthly(id, date);
+	return muList;
+	}
+	
+	// RETORNA UM OBJETO COM VALORES INSTANTANEOS (ULTIMOS 5 MINUTOS)
+	// http://localhost:8080/smartgrid/rest/getmeteringnow?id=1
+	@Path("/getmeteringnow")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<MeteringVo> getMeteringNow(
+			@QueryParam("id") Integer id) {
+		SmartgridDao sgDao = new SmartgridDao();
+		List<MeteringVo> muList = new ArrayList<MeteringVo>();
+		muList = sgDao.getMeteringNow(id);
+	return muList;
 	}
 
+	// RETORNA LISTA DE DEVICES
 	// http://localhost:8080/smartgrid/rest/getdevicelist
 	@Path("/getdevicelist")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<DeviceVo> getDevices() {
+	public List<DeviceVo> getDeviceList() {
 
 		SmartgridDao sgDao = new SmartgridDao();
 		List<DeviceVo> devList = new ArrayList<DeviceVo>();
@@ -88,14 +106,18 @@ public class Service {
 		return devList;
 	}
 
-	// http://localhost:8080/smartgrid/rest/getprice
+	// RETORNA A TARIFA PARA UM DETERMINADO DIA - HORA
+	// http://localhost:8080/smartgrid/rest/getprice?datetime=2014-03-01 18:00
 	@Path("/getprice")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Float getMeteringv2(@QueryParam("datetime") String datetime){
+	public Float getPrice(
+			@QueryParam("datetime") String datetime){
 		System.out.println("DATETIME: "+ datetime);
 		SmartgridDao sgDao = new SmartgridDao();
 		Float price = sgDao.getPrice(datetime);
 		return price;
 	}
+	
+
 }

@@ -1,64 +1,82 @@
 package com.smartgrid.model.vo;
 
 import java.io.Serializable;
-import java.util.Date;
-import java.util.List;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-public class MeteringVo implements Serializable {
-
-	private String deviceName;
-	private String tipoMedicao; // diario, semanal, mensal
-	private Date date_start;
-	private Date date_stop;
-	private List<Float> consumptionValue;	
-	private List<Float> generationValue;
+public class MeteringVo implements Serializable{
 	
-	// atributos sao calculados internamente na classe, nao tem set, so get
-	private List<Float> consumptionPrice; 
-	private List<Float> generationPrice;
-	public String getDeviceName() {
-		return deviceName;
+	private Integer idDevice;
+	private String meteringDate;
+	private Float consumption;
+	private Float consumptionPrice;
+	private Float generation;
+	private Float generationPrice;
+	private Float voltage;
+	private Float current;
+	private Float power;
+	private Float battery;
+	
+	public Integer getIdDevice() {
+		return idDevice;
 	}
-	public void setDeviceName(String deviceName) {
-		this.deviceName = deviceName;
+	public void setIdDevice(Integer idDevice) {
+		this.idDevice = idDevice;
 	}
-	public String getTipoMedicao() {
-		return tipoMedicao;
+	public String getMeteringDate() {
+		return meteringDate;
 	}
-	public void setTipoMedicao(String tipoMedicao) {
-		this.tipoMedicao = tipoMedicao;
+	public void setMeteringDate(String meteringDate) {
+		this.meteringDate = meteringDate;
 	}
-	public Date getDate_start() {
-		return date_start;
+	public Float getConsumption() {
+		return consumption;
 	}
-	public void setDate_start(Date date_start) {
-		this.date_start = date_start;
+	public void setConsumption(Float consumption) {
+		this.consumption = consumption;
 	}
-	public Date getDate_stop() {
-		return date_stop;
+	public Float getGeneration() {
+		return generation;
 	}
-	public void setDate_stop(Date date_stop) {
-		this.date_stop = date_stop;
+	public void setGeneration(Float generation) {
+		this.generation = generation;
 	}
-	public List<Float> getConsumptionValue() {
-		return consumptionValue;
+	public Float getVoltage() {
+		return voltage;
 	}
-	public void setConsumptionValue(List<Float> consumptionValue) {
-		this.consumptionValue = consumptionValue;
+	public void setVoltage(Float voltage) {
+		this.voltage = voltage;
 	}
-	public List<Float> getGenerationValue() {
-		return generationValue;
+	public Float getCurrent() {
+		return current;
 	}
-	public void setGenerationValue(List<Float> generationValue) {
-		this.generationValue = generationValue;
+	public void setCurrent(Float current) {
+		this.current = current;
 	}
-	public List<Float> getConsumptionPrice() {
+	public Float getPower() {
+		return power;
+	}
+	public void setPower(Float power) {
+		this.power = power;
+	}
+	public Float getBattery() {
+		return battery;
+	}
+	public void setBattery(Float battery) {
+		this.battery = battery;
+	}
+	public Float getConsumptionPrice() {
 		return consumptionPrice;
 	}
-	public List<Float> getGenerationPrice() {
+	public void setConsumptionPrice(Float consumptionPrice) {
+		this.consumptionPrice = consumptionPrice;
+	}
+	public Float getGenerationPrice() {
 		return generationPrice;
 	}
+	public void setGenerationPrice(Float generationPrice) {
+		this.generationPrice = generationPrice;
+	}	
+	
 }

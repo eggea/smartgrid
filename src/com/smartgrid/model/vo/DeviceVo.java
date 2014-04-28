@@ -13,6 +13,8 @@ public class DeviceVo implements Serializable {
 	private String deviceType;
 	private String ipaddress;
 	private Integer port;
+	private String protocol;
+	
 	public Integer getIdDevice() {
 		return idDevice;
 	}
@@ -49,6 +51,14 @@ public class DeviceVo implements Serializable {
 	public void setPort(Integer port) {
 		this.port = port;
 	}
+	public String getProtocol() {
+		return protocol;
+	}
+	public void setProtocol(String protocol) {
+		this.protocol = protocol;
+	}
+	
+	
 	
 	
 }
